@@ -5,32 +5,42 @@
 
 const http = require("http");
 const moment = require("moment");
-// - Make A Local Server
+
 const port = process.env.PORT || 3030;
 
-const server = http.createServer((req, res) => {
-  switch (req.url) {
-    case "/":
-      home(res);
-      break;
-    case "/welcome":
-      welcome(res);
-      break;
-    default:
-      page404(res);
-      break;
+const server = http.createServer(async (req, res) => {
+  try {
+    switch (req.url) {
+      case "/":
+        await home(res);
+        break;
+      case "/welcome":
+        await welcome(res);
+        break;
+      default:
+        await page404(res);
+        break;
+    }
+  } catch (error) {
+    console.error(error);
+    res.writeHead(500, { "Content-Type": "application/json" });
+    res.write(
+      JSON.stringify({
+        status: "error",
+        message: "internal server error",
+      })
+    );
+    res.end();
   }
 });
 
-const home = function (res) {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/html");
+const home = async function (res) {
+  res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`<h1>Selamat Datang di Home Page</h1>\n <h4>Semoga Allah permudah urusan</h4>`);
   res.end();
 };
-const welcome = function (res) {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/json");
+const welcome = async function (res) {
+  res.writeHead(200, { "Content-Type": "application/json" });
   res.write(
     JSON.stringify({
       status: "success",
@@ -41,9 +51,8 @@ const welcome = function (res) {
   res.end();
 };
 
-const page404 = function (res) {
-  res.statusCode = 404;
-  res.setHeader("Content-Type", "application/json");
+const page404 = async function (res) {
+  res.writeHead(404, { "Content-Type": "application/json" });
   res.write(
     JSON.stringify({
       status: "error",
@@ -53,5 +62,4 @@ const page404 = function (res) {
   res.end();
 };
 
-//- Create Server Acces
 server.listen(port, () => console.log(`Server listening on http://localhost:${port}`));
