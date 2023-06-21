@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-expressjs-eduwork-w8",
+  "version": "1.0.0",
+  "description": "Belajar Javascript sebagai Back-End",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhafars/nodejs-express-eduwork-w8.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Muhammad Fajri Assidiq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muhafars/nodejs-express-eduwork-w8/issues"
+  },
+  "homepage": "https://github.com/muhafars/nodejs-express-eduwork-w8#readme",
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}
