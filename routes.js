@@ -18,6 +18,10 @@ router.get("/products/:id", (req, res) => {
   next();
 });
 
+router.post("/products/", (req, res, next) => {
+  res.json(req.body);
+});
+
 router.get("/:categories/:tag", (req, res) => {
   const { categories, tag } = req.params;
   res.json({
