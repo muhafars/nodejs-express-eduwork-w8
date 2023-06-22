@@ -4,22 +4,27 @@ const PORT = process.env.PORT || 3030;
 const router = require("./routes");
 const loggers = require("./middlewares/loggers");
 const path = require("path");
+
 app.use(loggers);
-//- Mengirim API dalam bentuk html
 app.use(express.urlencoded({ extended: true }));
-//- Mengirim API dalam bentuk json
 app.use(express.json());
-app.use("/public", express.static(path.join(__dirname + "/uploads")));
-//-Routing
+app.use("/public", express.static(path.join(__dirname, "uploads")));
+
 app.use(router);
-//- Menangani error
+
 app.use((req, res, next) => {
-  res.status(404);
-  res.send({
-    status: "Failed",
-    message: `Resource ${req.originalUrl} not found`,
-  });
-  next();
+  const error = new Error(`Resource ${req.originalUrl} not found`);
+  error.status = 404;
+  next(error);
 });
 
-app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  res.status(err.status || 500).json({
+    status: "error",
+    message: err.message,
+  });
+});
+
+app.listen(PORT, async () => console.log(`Server listening on http://localhost:${PORT}`));
