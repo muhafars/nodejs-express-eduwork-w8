@@ -1,5 +1,6 @@
 const router = require("express").Router();
-
+const multer = require("multer");
+const upload = multer({ dest: "./uploads" });
 router.get("/", (req, res, next) => {
   const { page, total } = req.query;
   res.send({
@@ -18,8 +19,16 @@ router.get("/products/:id", (req, res) => {
   next();
 });
 
-router.post("/products/", (req, res, next) => {
-  res.json(req.body);
+router.post("/products/", upload.single("image"), (req, res, next) => {
+  const { name, price, stock, status } = req.body;
+  const image = req.file;
+  res.json({
+    name,
+    price,
+    stock,
+    status,
+    image,
+  });
 });
 
 router.get("/:categories/:tag", (req, res) => {
