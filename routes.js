@@ -27,22 +27,23 @@ router.post("/products/", upload.single("image"), (req, res, next) => {
   if (image) {
     const target = path.join(__dirname, "uploads", image.originalname);
     fs.renameSync(image.path, target);
-    res.json({
-      name,
-      price,
-      stock,
-      status,
-      image,
-    });
+    // res.json({
+    //   name,
+    //   price,
+    //   stock,
+    //   status,
+    //   image,
+    // });
+    res.sendFile(target);
   }
 });
 
-router.get("/:categories/:tag", (req, res) => {
-  const { categories, tag } = req.params;
-  res.json({
-    categories,
-    tag,
-  });
-  next();
-});
+// router.get("/:categories/:tag", (req, res) => {
+//   const { categories, tag } = req.params;
+//   res.json({
+//     categories,
+//     tag,
+//   });
+//   next();
+// });
 module.exports = router;

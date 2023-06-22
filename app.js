@@ -3,11 +3,13 @@ const app = express();
 const PORT = process.env.PORT || 3030;
 const router = require("./routes");
 const loggers = require("./middlewares/loggers");
+const path = require("path");
 app.use(loggers);
 //- Mengirim API dalam bentuk html
 app.use(express.urlencoded({ extended: true }));
 //- Mengirim API dalam bentuk json
 app.use(express.json());
+app.use("/public", express.static(path.join(__dirname + "/uploads")));
 //-Routing
 app.use(router);
 //- Menangani error
