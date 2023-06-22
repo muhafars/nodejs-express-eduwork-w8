@@ -1,7 +1,7 @@
 {
   "name": "nodejs-expressjs-eduwork-w8",
   "version": "1.0.0",
-  "description": "Belajar Javascript sebagai Back-End",
+  "description": "Belajar Javascript sebagai Back-End dan API",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/muhafars/nodejs-express-eduwork-w8#readme",
   "dependencies": {
+    "express": "^4.18.2",
     "moment": "^2.29.4"
   }
 }
